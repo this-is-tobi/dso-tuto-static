@@ -20,9 +20,9 @@ variables:
   MVN_CONFIG_FILE: $MVN_CONFIG
   TAG: "${CI_COMMIT_REF_SLUG}"
   DOCKERFILE: Dockerfile
-  PROJECT_NAME: demo-projets-dso-clients
-  PROJECT_ORGANISATION: ministere-interieur
-  PROJECT_PATH: ${PROJECT_ORGANISATION}-${PROJECT_NAME}
+#  PROJECT_NAME: demo-projets-dso-clients
+#  PROJECT_ORGANISATION: ministere-interieur
+#  PROJECT_PATH: ${PROJECT_ORGANISATION}-${PROJECT_NAME}
   REGISTRY_URL: "${QUAY_ROOT_URL}/${PROJECT_PATH}"
 
 
@@ -34,8 +34,9 @@ stages:
 debug:
   stage: debug
   script:
+    - PROJECT_PATH=`echo "$CI_PROJECT_NAMESPACE" | sed 's/forge-mi\/projects\///g' | sed 's/\//-/g'`
+#    - REGISTRY_URL="${QUAY_ROOT_URL}/${PROJECT_PATH}"
     - env
-    - echo "$CI_PROJECT_NAMESPACE"
 
 read_secret:
   stage: read-secret
