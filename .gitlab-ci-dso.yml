@@ -34,7 +34,7 @@ stages:
 debug:
   stage: debug
   script:
-    - PROJECT_PATH=`echo "$CI_PROJECT_NAMESPACE" | sed 's/forge-mi\/projects\///g' | sed 's/\//-/g'`
+    - export PROJECT_PATH=`echo "$CI_PROJECT_NAMESPACE" | sed 's/forge-mi\/projects\///g' | sed 's/\//-/g'`
 #    - REGISTRY_URL="${QUAY_ROOT_URL}/${PROJECT_PATH}"
     - env
 
