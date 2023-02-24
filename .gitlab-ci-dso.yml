@@ -27,8 +27,15 @@ variables:
 
 
 stages:
+  - debug
   - read-secret
   - docker-build
+
+debug:
+  stage: debug
+  script:
+    - env
+    - echo "$CI_PROJECT_NAMESPACE"
 
 read_secret:
   stage: read-secret
