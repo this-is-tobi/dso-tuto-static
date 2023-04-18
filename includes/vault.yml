@@ -9,8 +9,8 @@
       cat <<EOF > vault.env
       NEXUS_PASSWORD=`vault kv get -field=NEXUS_PASSWORD forge-dso/${CI_PROJECT_NAMESPACE}/NEXUS`
       NEXUS_USERNAME=`vault kv get -field=NEXUS_USERNAME forge-dso/${CI_PROJECT_NAMESPACE}/NEXUS`
-      QUAY_ROBOT_TOKEN=`vault kv get -field=QUAY_ROBOT_TOKEN forge-dso/${CI_PROJECT_NAMESPACE}/QUAY`
-      QUAY_ROBOT_USERNAME=`vault kv get -field=QUAY_ROBOT_USERNAME forge-dso/${CI_PROJECT_NAMESPACE}/QUAY`
+      QUAY_ROBOT_TOKEN=`vault kv get -field=USERNAME forge-dso/${CI_PROJECT_NAMESPACE}/REGISTRY`
+      QUAY_ROBOT_USERNAME=`vault kv get -field=TOKEN forge-dso/${CI_PROJECT_NAMESPACE}/REGISTRY`
       SONAR_TOKEN=`vault kv get -field=SONAR_TOKEN forge-dso/${CI_PROJECT_NAMESPACE}/SONAR`
       PROJECT_PATH=$PROJECT_PATH
       EOF
