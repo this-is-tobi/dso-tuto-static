@@ -1,8 +1,14 @@
 include:
   - local: "/includes/java-mvn.yml"
-  - local: "/includes/docker.yml"
-  - local: "/includes/vault.yml"
+  # - local: "/includes/docker.yml"
+  # - local: "/includes/vault.yml"
   - local: "/includes/rules.yml"
+  - project: $CATALOG_PATH
+    file: vault-ci.yml
+    ref: main
+  - project: $CATALOG_PATH
+    file: kaniko-ci.yml
+    ref: main
 
 default:
   image: alpine:latest
@@ -22,12 +28,11 @@ variables:
   DOCKERFILE: Dockerfile
   REGISTRY_URL: "${REGISTRY_HOST}/${PROJECT_PATH}"
 
-
 stages:
   - read-secret
   - docker-build
 
-read_secret:
+read-secret:
   stage: read-secret
   extends:
     - .vault:read_secret
@@ -38,10 +43,4 @@ docker-build:
     IMAGE_NAME: app-nginx-static-demo
   stage: docker-build
   extends:
-    - .docker:test
-    - .kaniko:build
-  #   - .docker:build
-  # tags:
-  #   - docker
-  #   - vms
-
+    - .kaniko:build-push
