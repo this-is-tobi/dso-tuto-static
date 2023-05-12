@@ -7,12 +7,16 @@
     - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=default-ci jwt=$CI_JOB_JWT)"
     - export DOCKER_AUTH=`vault kv get -field=DOCKER_CONFIG forge-dso/${CI_PROJECT_NAMESPACE}/REGISTRY`
     - export REGISTRY_HOST=`vault kv get -field=HOST forge-dso/${CI_PROJECT_NAMESPACE}/REGISTRY`
+    - export REGISTRY_USERNAME=`vault kv get -field=USERNAME forge-dso/${CI_PROJECT_NAMESPACE}/REGISTRY`
+    - export REGISTRY_TOKEN=`vault kv get -field=TOKEN forge-dso/${CI_PROJECT_NAMESPACE}/REGISTRY`
     - export IMAGE_REPOSITORY="${REGISTRY_HOST}/${PROJECT_PATH}"
     - |
       cat <<EOF > vault.env
       REGISTRY_HOST=$REGISTRY_HOST
       IMAGE_REPOSITORY=$IMAGE_REPOSITORY
       PROJECT_PATH=$PROJECT_PATH
+      REGISTRY_USERNAME=$REGISTRY_USERNAME
+      REGISTRY_TOKEN=$REGISTRY_TOKEN
       DOCKER_AUTH=$DOCKER_AUTH
       EOF
     - cat vault.env
