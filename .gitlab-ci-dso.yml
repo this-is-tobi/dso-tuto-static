@@ -1,7 +1,4 @@
 include:
-  - local: "/includes/java-mvn.yml"
-  # - local: "/includes/docker.yml"
-  # - local: "/includes/vault.yml"
   - local: "/includes/rules.yml"
   - project: $CATALOG_PATH
     file: vault-ci.yml
@@ -12,18 +9,8 @@ include:
 
 default:
   image: alpine:latest
-#  tags:
-#    - ADD_CUSTOM_TAG_HERE
-
-cache:
-  paths:
-    - .m2/repository/
-    - node_modules
 
 variables:
-  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
-  MAVEN_CLI_OPTS: ""
-  MVN_CONFIG_FILE: $MVN_CONFIG
   TAG: "${CI_COMMIT_REF_SLUG}"
   DOCKERFILE: Dockerfile
   REGISTRY_URL: "${REGISTRY_HOST}/${PROJECT_PATH}"
@@ -32,7 +19,7 @@ stages:
   - read-secret
   - docker-build
 
-read-secret:
+read_secret:
   stage: read-secret
   extends:
     - .vault:read_secret
@@ -40,7 +27,7 @@ read-secret:
 docker-build:
   variables:
     WORKING_DIR: "."
-    IMAGE_NAME: app-nginx-static-demo
+    IMAGE_NAME: test10
   stage: docker-build
   extends:
     - .kaniko:build-push
